@@ -1,0 +1,30 @@
+{
+    "server1": [
+        {
+            "storyName": "Alpha",
+            "breach": "Red"
+        }
+    ],
+    "server2": [
+        {
+            "storyName": "Bravo",
+            "breach": "Blue"
+        }
+    ],
+    "server3": [
+        {
+            "storyName": "Charlie",
+            "breach": "Green"
+        }
+    ],
+    "server4": [
+        {
+            "storyName": "Delta",
+            "breach": "Yellow"
+        },
+        {
+            "storyName": "Echo",
+            "breach": "Orange"
+        }
+    ]
+}
