@@ -5,11 +5,6 @@ import servers from "./data/servers.json";
 
 import ServerLogin from "./components/ServerLogin";
 
-import Server1 from "./pages/Server1";
-import Server2 from "./pages/Server2";
-import Server3 from "./pages/Server3";
-import Server4 from "./pages/Server4";
-
 function App() {
   return (
     <Router>
