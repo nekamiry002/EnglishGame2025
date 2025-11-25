@@ -1,16 +1,20 @@
+/* Terminal en plein écran */
 .terminal-window {
   background: black;
   color: #00ff00;
   font-family: "Courier New", monospace;
   padding: 20px;
   border: 2px solid #0f0;
-  width: 70%;
-  margin: auto;
-  margin-top: 40px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px #00ff00;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
+/* En-tête */
 .terminal-header {
   background: #003300;
   padding: 5px 10px;
@@ -19,38 +23,37 @@
   border-bottom: 2px solid #00ff00;
 }
 
+/* Zone d'affichage */
 .terminal-output {
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 10px;
   white-space: pre-line;
-  margin-bottom: 10px;
 }
 
+/* Ligne input */
 .terminal-input-line {
   display: flex;
   align-items: center;
-}
-
-.terminal-input-line span {
-  margin-right: 5px;
+  gap: 10px;
 }
 
 .terminal-input {
-  background: transparent;
+  background: black;
   border: none;
   color: #00ff00;
   outline: none;
   font-family: inherit;
-  font-size: 16px;
-  width: 100%;
+  flex: 1;
 }
 
-.hacking-dots::after {
-  content: "...";
-  animation: hacking 1s infinite;
+/* Animation hacking (...) */
+.hacking-dots {
+  animation: blink 1s infinite;
 }
 
-@keyframes hacking {
-  0%   { content: ""; }
-  33%  { content: "."; }
-  66%  { content: ".."; }
-  100% { content: "..."; }
+@keyframes blink {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
 }

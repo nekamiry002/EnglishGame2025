@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../Terminal.css";
+import "../styles/Terminal.css";
 
 export default function ServerLogin({ validResponses, serverName }) {
   const [step, setStep] = useState(1);
