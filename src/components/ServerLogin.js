@@ -1,71 +1,97 @@
 import { useState } from "react";
+import "../Terminal.css";
 
 export default function ServerLogin({ validResponses, serverName }) {
   const [step, setStep] = useState(1);
-  const [storyName, setStoryName] = useState("");
-  const [breach, setBreach] = useState("");
-  const [message, setMessage] = useState("");
+  const [currentInput, setCurrentInput] = useState("");
+  const [history, setHistory] = useState([]);
+  const [isHacking, setIsHacking] = useState(false);
+  const [finished, setFinished] = useState(false);
+  const [validatedStory, setValidatedStory] = useState("");
 
-  const handleStep1 = () => {
-    // vérifier si le storyName existe dans les bonnes réponses
-    const storyExists = validResponses.some(
-      (r) => r.storyName.toLowerCase() === storyName.toLowerCase()
-    );
 
-    if (!storyExists) {
-      setMessage("❌ Wrong story name");
+  const pushHistory = (text) => {
+    setHistory((prev) => [...prev, text]);
+  };
+
+  const handleEnter = () => {
+    if (finished) return;
+
+    pushHistory(`> ${currentInput}`);
+
+    if (step === 1) {
+      const storyExists = validResponses.some(
+        (r) => r.storyName.toLowerCase() === currentInput.toLowerCase()
+      );
+
+      if (!storyExists) {
+        pushHistory("❌ Wrong story name");
+        setFinished(true);
+        return;
+      }
+
+      pushHistory("Story accepted. Enter breach:");
+      setValidatedStory(currentInput); // <-- stocke le storyName
+      setStep(2);
+      setCurrentInput("");
       return;
     }
 
-    // continuer vers la deuxième étape
-    setStep(2);
-  };
 
-  const handleLogin = () => {
-    const isValid = validResponses.some(
-      (r) =>
-        r.storyName.toLowerCase() === storyName.toLowerCase() &&
-        r.breach.toLowerCase() === breach.toLowerCase()
-    );
+    if (step === 2) {
+      const match = validResponses.find(
+        (r) =>
+          r.storyName.toLowerCase() === validatedStory.toLowerCase() &&
+          r.breach.toLowerCase() === currentInput.toLowerCase()
+      );
 
-    if (isValid) {
-      setMessage(`✔️ Login success on ${serverName}!`);
-    } else {
-      setMessage("❌ Wrong breach");
+      if (!match) {
+        pushHistory("❌ Wrong breach");
+        setFinished(true);
+        return;
+      }
+
+      // valid → hacking animation
+      setIsHacking(true);
+      pushHistory("hacking");
+
+      setTimeout(() => {
+        pushHistory(match.successMessage);
+        setIsHacking(false);
+        setFinished(true);
+      }, 2500);
+
+      return;
     }
-  };
 
-  const showInputs = message === "";
+  };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>{serverName}</h2>
+    <div className="terminal-window">
+      <div className="terminal-header">
+        secure-shell://{serverName.replace(" ", "").toLowerCase()}.192.168.0.21
+      </div>
 
-      {showInputs && step === 1 && (
-        <div>
-          <label>Name of the story:</label>
+      <div className="terminal-output">
+        {history.map((line, i) => (
+          <div key={i} className={line === "hacking" ? "hacking-dots" : ""}>
+            {line}
+          </div>
+        ))}
+      </div>
+
+      {!finished && !isHacking && (
+        <div className="terminal-input-line">
+          <span>&gt;</span>
           <input
-            type="text"
-            value={storyName}
-            onChange={(e) => setStoryName(e.target.value)}
+            className="terminal-input"
+            value={currentInput}
+            onChange={(e) => setCurrentInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleEnter()}
+            autoFocus
           />
-          <button onClick={handleStep1}>Next</button>
         </div>
       )}
-
-      {showInputs && step === 2 && (
-        <div>
-          <label>Breach you want to use:</label>
-          <input
-            type="text"
-            value={breach}
-            onChange={(e) => setBreach(e.target.value)}
-          />
-          <button onClick={handleLogin}>Login</button>
-        </div>
-      )}
-
-      {message && <p>{message}</p>}
     </div>
   );
 }

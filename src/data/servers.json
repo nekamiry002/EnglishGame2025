@@ -2,29 +2,39 @@
     "server1": [
         {
             "storyName": "Alpha",
-            "breach": "Red"
+            "breach": "Red",
+            "successMessage": "Alpha Red validated."
+        },
+        {
+            "storyName": "Omega",
+            "breach": "Black",
+            "successMessage": "Omega Black authorized."
         }
     ],
     "server2": [
         {
             "storyName": "Bravo",
-            "breach": "Blue"
+            "breach": "Blue",
+            "successMessage": "Bravo Blue: Access granted."
         }
     ],
     "server3": [
         {
             "storyName": "Charlie",
-            "breach": "Green"
+            "breach": "Green",
+            "successMessage": "Charlie Green confirmed."
         }
     ],
     "server4": [
         {
             "storyName": "Delta",
-            "breach": "Yellow"
+            "breach": "Yellow",
+            "successMessage": "Delta-Yellow breach accepted."
         },
         {
             "storyName": "Echo",
-            "breach": "Orange"
+            "breach": "Orange",
+            "successMessage": "Echo-Orange intrusion authorized."
         }
     ]
 }
