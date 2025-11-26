@@ -4,7 +4,7 @@
 
 @media (max-width: 768px) {
   :root {
-    --header-height: 125px; /* un peu plus haut sur mobile */
+    --header-height: 130px; /* un peu plus haut sur mobile */
   }
 }
 
