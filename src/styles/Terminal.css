@@ -1,9 +1,20 @@
+:root {
+  --header-height: 45px; /* hauteur par défaut sur desktop */
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 125px; /* un peu plus haut sur mobile */
+  }
+}
+
+
 /* ------- GLOBAL RESET ------- */
 html, body, #root {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   overflow-x: hidden; /* Fix largeur > 100% */
   background: black;
   color: #00ff00;
@@ -11,34 +22,66 @@ html, body, #root {
 }
 
 /* ------- TERMINAL FULLSCREEN ------- */
+/* Le terminal doit prendre tout l’espace restant sous le header */
 .terminal-window {
   background: black;
   color: #00ff00;
   font-family: "Courier New", monospace;
 
-  width: 100vw;
-  height: calc(100vh - 45px); /* Toujours FULLSCREEN */
-  margin: 0;
-  padding: 0;
+  width: 100%;
+  height: calc(100vh - var(--header-height)); /* height dynamique */
+  
+  border: 2px solid #00ff00;
 
-  border: 2px solid #0f0;
-  border-radius: 6px;
-
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-
-  /* IMPORTANT : empêche tout scroll global sur les pages serveurs */
-  overflow: hidden;
+  overflow: hidden; /* pas de scroll global */
+  box-sizing: border-box;
 }
 
+/* output scroll seulement */
+.terminal-output {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* INPUT responsive */
+.terminal-input-line {
+  display: flex;
+  padding: 10px;
+  gap: 10px;
+  border-top: 1px solid #00ff00;
+  box-sizing: border-box;
+}
+
+/* ---------- Responsive terminal ---------- */
+
+/* Tablettes */
+@media (max-width: 768px) {
+  .terminal-output {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .terminal-input {
+    font-size: 14px;
+  }
+}
 
 /* Mobiles */
 @media (max-width: 480px) {
-  .terminal-window {
-    height: calc(100vh - 75px);
+  .terminal-output {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .terminal-input {
+    font-size: 12px;
   }
 }
+
 
 /* ------- HEADER ------- */
 .terminal-header {
