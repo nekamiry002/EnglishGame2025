@@ -1,0 +1,29 @@
+.main-header {
+  width: 100%;
+  background: black;
+  border-bottom: 2px solid #00ff00;
+  padding: 10px 20px;
+  display: flex;
+  gap: 30px;
+  box-sizing: border-box;
+}
+
+.header-link {
+  color: #00ff00;
+  text-decoration: none;
+  font-family: "Courier New", monospace;
+  font-size: 18px;
+  position: relative;
+  padding-bottom: 3px;
+}
+
+/* Lien actif : style terminal ">" + underline vert */
+.header-link.active {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.header-link.active::before {
+  content: "> ";
+  color: #00ff00;
+}
