@@ -32,6 +32,14 @@ html, body, #root {
   overflow: hidden;
 }
 
+
+/* Mobiles */
+@media (max-width: 480px) {
+  .terminal-window {
+    height: calc(100vh - 75px);
+  }
+}
+
 /* ------- HEADER ------- */
 .terminal-header {
   background: linear-gradient(to bottom, #004400, #002200);
